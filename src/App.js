@@ -5,6 +5,18 @@ const SalesToolkit = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTool, setSelectedTool] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // ใส่ตรงนี้ - หลัง useState และก่อน styles
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Inline styles
   const styles = {
@@ -252,24 +264,26 @@ const SalesToolkit = () => {
       title: '2. Negotiation (เจรจา)',
       color: 'bg-yellow-100 border-yellow-300',
       tools: [
-        { name: 'Krungthai Healthcare Ecosystem', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' },
-        { name: 'โอกาสทางธุรกิจ', icon: <Users size={20} />, description: 'โอกาสทางธุรกิจ',imageFiles:['/bl1.png','/bl2.png']}
+        { name: 'NHSO Supplier OD', icon: <Users size={20} />, description: 'NHSO Supplier OD',pdfFile: '/HC_Trend.pdf' },
+        { name: 'Buyer OD', icon: <Users size={20} />, description: 'Buyer OD',imageFiles:['/bl1.png','/bl2.png']},
+        { name: 'Do/Don\'t', icon: <Users size={20} />, description: 'Do Don\'t',imageFiles:['/bl1.png','/bl2.png']},
+        { name: 'Calculator', icon: <Users size={20} />, description: 'Calculator',imageFiles:['/bl1.png','/bl2.png']}
       ]
     },
     Win: {
       title: '3. Win (พิชิตใจ)',
       color: 'bg-yellow-100 border-yellow-300',
       tools: [
-        { name: 'Krungthai Healthcare Ecosystem', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' },
-        { name: 'โอกาสทางธุรกิจ', icon: <Users size={20} />, description: 'โอกาสทางธุรกิจ',imageFiles:['/bl1.png','/bl2.png']}
+        { name: 'checklist เอกสาร', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' },
+        { name: 'Follow up', icon: <Users size={20} />, description: 'โอกาสทางธุรกิจ',imageFiles:['/bl1.png','/bl2.png']}
       ]
     },
-    Win: {
-      title: '3. Win (พิชิตใจ)',
+    Campaign: {
+      title: '4. Campaign',
       color: 'bg-yellow-100 border-yellow-300',
       tools: [
-        { name: 'Krungthai Healthcare Ecosystem', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' },
-        { name: 'โอกาสทางธุรกิจ', icon: <Users size={20} />, description: 'โอกาสทางธุรกิจ',imageFiles:['/bl1.png','/bl2.png']}
+        { name: 'Top Sale', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' },
+        { name: 'Krungthai Healthcare Ecosystem', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' }
       ]
     }
   };
@@ -376,7 +390,7 @@ const SalesToolkit = () => {
           ))}
         </div>
 
-        {/* Image/PDF Content Viewer */}
+    {/* Image/PDF Content Viewer */}
         {selectedTool && (selectedTool.content || selectedTool.pdfFile || selectedTool.imageFile || selectedTool.imageFiles) && (
           <div style={styles.contentSection}>
             <div style={styles.contentHeader}>
