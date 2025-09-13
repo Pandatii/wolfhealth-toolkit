@@ -1,62 +1,182 @@
 import React, { useState } from 'react';
-import { Search, ChevronRight, Calculator, FileText, Users, Target, Award, TrendingUp, DollarSign, Settings, CheckSquare } from 'lucide-react';
+import { Users, Target, FileText, Heart, Award, TrendingUp, DollarSign, Settings } from 'lucide-react';
 
-const SalesToolkit = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedTool, setSelectedTool] = useState(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+const TabMenuApp = () => {
+  const [activeTab, setActiveTab] = useState('kyc');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // ใส่ตรงนี้ - หลัง useState และก่อน styles
-  React.useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+  // Reset image index when switching tabs manually
+  const switchTab = (newTab) => {
+    setActiveTab(newTab);
+    setCurrentImageIndex(0);
+  };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const tabsData = {
+    wolfhealth: {
+      title: 'Wolfhealth',
+      icon: <Users size={20} />,
+      color: '#3b82f6',
+      content: {
+        title: 'Wolfhealth',
+        subtitle: 'ทำไมสินเชื่อร้านยาถึงสำคัญ?',
+        imageFiles: [
+          '/wh1.png',
+          '/wh2.png',
+          '/wh3.png',
+          '/wh4.png'
+        ]
+      }
+    },
+    kyc: {
+      title: 'Know Your Customer',
+      icon: <Users size={20} />,
+      color: '#3b82f6',
+      content: {
+        title: 'Know Your Customer (KYC)',
+        subtitle: 'เครื่องมือทำความรู้จักลูกค้าสำหรับทีมขาย Healthcare',
+        imageFiles: [
+          'https://via.placeholder.com/600x400/3b82f6/white?text=KYC+Process+1',
+          'https://via.placeholder.com/600x400/1e40af/white?text=Customer+Analysis+2',
+          'https://via.placeholder.com/600x400/1d4ed8/white?text=Data+Collection+3'
+        ]
+      }
+    },
+    decision: {
+      title: 'Decision Maker',
+      icon: <Target size={20} />,
+      color: '#ef4444',
+      content: {
+        title: 'Decision Maker Analysis',
+        subtitle: 'การระบุและวิเคราะห์ผู้มีอำนาจตัดสินใจ',
+        sections: [
+          {
+            title: 'ระดับการตัดสินใจ',
+            items: [
+              'ผู้บริหารระดับสูง (C-Level)',
+              'ผู้จัดการแผนก (Department Manager)',
+              'หัวหน้าโครงการ (Project Leader)',
+              'ผู้ใช้งานจริง (End User)'
+            ]
+          },
+          {
+            title: 'กระบวนการตัดสินใจ',
+            items: [
+              'การประเมินความต้องการ',
+              'การวิเคราะห์งบประมาณ',
+              'การเปรียบเทียบทางเลือก',
+              'การอนุมัติโครงการ'
+            ]
+          }
+        ]
+      }
+    },
+    ecosystem: {
+      title: 'Healthcare Ecosystem',
+      icon: <Heart size={20} />,
+      color: '#10b981',
+      content: {
+        title: 'Healthcare Ecosystem Overview',
+        subtitle: 'ระบบนิเวศด้านสุขภาพและการดูแลพนักงาน',
+        sections: [
+          {
+            title: 'ผู้เกี่ยวข้องหลัก',
+            items: [
+              'โรงพยาบาลและคลินิก',
+              'บริษัทประกันสุขภาพ',
+              'ผู้ให้บริการตรวจสุขภาพ',
+              'แพลตฟอร์มเทคโนโลยีสุขภาพ'
+            ]
+          },
+          {
+            title: 'แนวโน้มตลาด',
+            items: [
+              'Digital Health Transformation',
+              'Preventive Healthcare',
+              'Employee Wellness Program',
+              'Telemedicine & Remote Care'
+            ]
+          }
+        ]
+      }
+    },
+    performance: {
+      title: 'Performance Metrics',
+      icon: <TrendingUp size={20} />,
+      color: '#8b5cf6',
+      content: {
+        title: 'Sales Performance Dashboard',
+        subtitle: 'ตัวชี้วัดและการวัดผลการขาย',
+        charts: true,
+        metrics: [
+          { label: 'Monthly Revenue', value: '฿2.5M', change: '+15.2%', color: '#10b981' },
+          { label: 'New Clients', value: '24', change: '+8.3%', color: '#3b82f6' },
+          { label: 'Conversion Rate', value: '32%', change: '-2.1%', color: '#ef4444' },
+          { label: 'Average Deal Size', value: '฿125K', change: '+12.7%', color: '#f59e0b' }
+        ]
+      }
+    },
+    tools: {
+      title: 'Sales Tools',
+      icon: <Settings size={20} />,
+      color: '#6b7280',
+      content: {
+        title: 'Sales Tools & Resources',
+        subtitle: 'เครื่องมือและทรัพยากรสำหรับทีมขาย',
+        tools: [
+          { name: 'CRM System', description: 'ระบบจัดการลูกค้าสัมพันธ์', status: 'active' },
+          { name: 'Proposal Generator', description: 'เครื่องมือสร้างข้อเสนอ', status: 'active' },
+          { name: 'ROI Calculator', description: 'คำนวณผลตอบแทนการลงทุน', status: 'maintenance' },
+          { name: 'Contract Templates', description: 'แม่แบบสัญญา', status: 'active' },
+          { name: 'Presentation Library', description: 'ห้องสมุดงานนำเสนอ', status: 'active' }
+        ]
+      }
+    }
+  };
 
-  // Inline styles
   const styles = {
     container: {
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-      background: 'linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #f3e5f5 100%)',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif',
+      background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #fef3c7 100%)',
       minHeight: '100vh',
       margin: 0,
       padding: 0,
     },
     header: {
       background: 'white',
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-      borderBottom: '1px solid #e5e7eb',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
     },
     headerContainer: {
-      maxWidth: '1280px',
+      maxWidth: '1200px',
       margin: '0 auto',
-      padding: '24px 16px',
+      padding: '0 20px',
+    },
+    headerTop: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      flexWrap: 'wrap',
+      padding: '20px 0',
+      borderBottom: '1px solid #e5e7eb',
     },
     title: {
-      fontSize: '30px',
+      fontSize: '28px',
       fontWeight: 'bold',
       color: '#111827',
       margin: 0,
     },
     subtitle: {
       color: '#6b7280',
-      marginTop: '8px',
+      marginTop: '4px',
+      fontSize: '14px',
     },
     statusBadge: {
       display: 'flex',
       alignItems: 'center',
       background: '#dcfce7',
       color: '#166534',
-      padding: '4px 12px',
+      padding: '6px 12px',
       borderRadius: '20px',
       fontSize: '14px',
     },
@@ -67,93 +187,244 @@ const SalesToolkit = () => {
       borderRadius: '50%',
       marginRight: '8px',
     },
-    mainContainer: {
-      maxWidth: '1280px',
-      margin: '0 auto',
-      padding: '32px 16px',
-    },
-    searchSection: {
-      marginBottom: '32px',
-    },
-    searchInputContainer: {
-      position: 'relative',
-      marginBottom: '16px',
-    },
-    searchInput: {
-      width: '100%',
-      padding: '12px 12px 12px 40px',
-      border: '1px solid #d1d5db',
-      borderRadius: '8px',
-      fontSize: '16px',
-      outline: 'none',
-      boxSizing: 'border-box',
-    },
-    searchIcon: {
-      position: 'absolute',
-      left: '12px',
-      top: '12px',
-      color: '#9ca3af',
-    },
-    filterButtons: {
+    tabsContainer: {
       display: 'flex',
-      flexWrap: 'wrap',
-      gap: '8px',
+      overflowX: 'auto',
+      borderBottom: '1px solid #e5e7eb',
     },
-    filterBtn: {
-      padding: '8px 16px',
-      borderRadius: '8px',
-      fontWeight: '500',
-      border: '1px solid #d1d5db',
-      background: 'white',
+    tab: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: '16px 24px',
+      cursor: 'pointer',
+      borderBottom: '2px solid transparent',
+      transition: 'all 0.2s',
+      whiteSpace: 'nowrap',
       color: '#6b7280',
-      cursor: 'pointer',
-      transition: 'all 0.2s',
-    },
-    filterBtnActive: {
-      padding: '8px 16px',
-      borderRadius: '8px',
+      fontSize: '14px',
       fontWeight: '500',
-      border: '1px solid #3b82f6',
-      background: '#3b82f6',
-      color: 'white',
-      cursor: 'pointer',
-      transition: 'all 0.2s',
     },
-    toolsGrid: {
-      display: 'grid',
-      gap: '24px',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-      marginBottom: '48px',
+    tabActive: {
+      color: '#3b82f6',
+      borderBottomColor: '#3b82f6',
+      background: '#f8fafc',
     },
-    toolCard: {
+    tabIcon: {
+      marginRight: '8px',
+    },
+    content: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '32px 20px',
+    },
+    contentHeader: {
+      textAlign: 'center',
+      marginBottom: '40px',
+    },
+    contentTitle: {
+      fontSize: '32px',
+      fontWeight: 'bold',
+      color: '#111827',
+      marginBottom: '8px',
+    },
+    contentSubtitle: {
+      fontSize: '16px',
+      color: '#6b7280',
+    },
+    section: {
       background: 'white',
       borderRadius: '12px',
+      padding: '32px',
+      marginBottom: '24px',
       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-      border: '1px solid #e5e7eb',
-      padding: '24px',
-      cursor: 'pointer',
-      transition: 'all 0.2s',
     },
-    toolHeader: {
+    sectionTitle: {
+      fontSize: '20px',
+      fontWeight: '600',
+      color: '#111827',
+      marginBottom: '16px',
       display: 'flex',
-      alignItems: 'flex-start',
-      gap: '12px',
+      alignItems: 'center',
     },
-    toolIcon: {
-      flexShrink: 0,
+    sectionIcon: {
+      marginRight: '12px',
       padding: '8px',
       background: '#dbeafe',
       borderRadius: '8px',
+    },
+    itemList: {
+      display: 'grid',
+      gap: '12px',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    },
+    listItem: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: '12px 16px',
+      background: '#f9fafb',
+      borderRadius: '8px',
+      border: '1px solid #e5e7eb',
+    },
+    itemDot: {
+      width: '8px',
+      height: '8px',
+      background: '#3b82f6',
+      borderRadius: '50%',
+      marginRight: '12px',
+    },
+    // Carousel Styles
+    carousel: {
+      position: 'relative',
+      marginTop: '24px',
+      background: 'white',
+      borderRadius: '12px',
+      overflow: 'hidden',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    },
+    carouselContainer: {
+      position: 'relative',
+      width: '100%',
+      height: '400px',
+      overflow: 'hidden',
+    },
+    carouselTrack: {
+      display: 'flex',
+      width: '100%',
+      height: '100%',
+      transition: 'transform 0.3s ease-in-out',
+    },
+    carouselSlide: {
+      minWidth: '100%',
+      height: '100%',
+      position: 'relative',
+    },
+    carouselImage: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    },
+    carouselCaption: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
+      color: 'white',
+      padding: '40px 20px 20px',
+      fontSize: '16px',
+      fontWeight: '500',
+    },
+    carouselNav: {
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      background: 'rgba(255, 255, 255, 0.9)',
+      border: 'none',
+      width: '50px',
+      height: '50px',
+      borderRadius: '50%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      cursor: 'pointer',
+      fontSize: '20px',
+      color: '#374151',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+      transition: 'all 0.2s',
+      zIndex: 10,
     },
-    toolContent: {
+    navPrev: {
+      left: '20px',
+    },
+    navNext: {
+      right: '20px',
+    },
+    carouselDots: {
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '8px',
+      padding: '20px',
+      background: 'rgba(0, 0, 0, 0.05)',
+    },
+    dot: {
+      width: '12px',
+      height: '12px',
+      borderRadius: '50%',
+      border: 'none',
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      background: '#d1d5db',
+    },
+    dotActive: {
+      background: '#3b82f6',
+      transform: 'scale(1.2)',
+    },
+    imageCard: {
+      background: 'white',
+      borderRadius: '12px',
+      overflow: 'hidden',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    },
+    image: {
+      width: '100%',
+      height: '200px',
+      objectFit: 'cover',
+    },
+    imageCaption: {
+      padding: '16px',
+      textAlign: 'center',
+      color: '#6b7280',
+      fontSize: '14px',
+    },
+    metricsGrid: {
+      display: 'grid',
+      gap: '20px',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      marginTop: '24px',
+    },
+    metricCard: {
+      background: 'white',
+      borderRadius: '12px',
+      padding: '24px',
+      textAlign: 'center',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    },
+    metricValue: {
+      fontSize: '28px',
+      fontWeight: 'bold',
+      marginBottom: '4px',
+    },
+    metricLabel: {
+      fontSize: '14px',
+      color: '#6b7280',
+      marginBottom: '8px',
+    },
+    metricChange: {
+      fontSize: '12px',
+      fontWeight: '500',
+      padding: '2px 8px',
+      borderRadius: '12px',
+    },
+    toolsGrid: {
+      display: 'grid',
+      gap: '16px',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+      marginTop: '24px',
+    },
+    toolCard: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: '20px',
+      background: 'white',
+      borderRadius: '12px',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      transition: 'transform 0.2s',
+    },
+    toolInfo: {
       flex: 1,
-      minWidth: 0,
     },
-    toolTitle: {
-      fontSize: '18px',
+    toolName: {
+      fontSize: '16px',
       fontWeight: '600',
       color: '#111827',
       marginBottom: '4px',
@@ -161,386 +432,152 @@ const SalesToolkit = () => {
     toolDescription: {
       fontSize: '14px',
       color: '#6b7280',
-      marginBottom: '12px',
     },
-    toolCategory: {
-      display: 'inline-block',
-      padding: '2px 8px',
+    toolStatus: {
+      padding: '4px 12px',
+      borderRadius: '20px',
       fontSize: '12px',
       fontWeight: '500',
-      background: '#f3f4f6',
-      color: '#6b7280',
-      borderRadius: '4px',
+      marginLeft: '16px',
     },
-    chevronIcon: {
-      color: '#9ca3af',
+    statusActive: {
+      background: '#dcfce7',
+      color: '#166534',
     },
-    emptyState: {
-      textAlign: 'center',
-      padding: '48px 0',
-    },
-    emptyIcon: {
-      width: '96px',
-      height: '96px',
-      background: '#f3f4f6',
-      borderRadius: '50%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin: '0 auto 16px',
-    },
-    emptyTitle: {
-      fontSize: '18px',
-      fontWeight: '500',
-      color: '#111827',
-      marginBottom: '8px',
-    },
-    emptyText: {
-      color: '#6b7280',
-    },
-    statsSection: {
-      background: 'white',
-      borderRadius: '12px',
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-      border: '1px solid #e5e7eb',
-      padding: '24px',
-      marginTop: '48px',
-    },
-    statsTitle: {
-      fontSize: '20px',
-      fontWeight: '600',
-      color: '#111827',
-      marginBottom: '16px',
-    },
-    statsGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '16px',
-    },
-    statItem: {
-      textAlign: 'center',
-      padding: '16px',
-      background: '#f9fafb',
-      borderRadius: '8px',
-    },
-    statNumber: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      color: '#3b82f6',
-    },
-    statLabel: {
-      fontSize: '14px',
-      color: '#6b7280',
-      marginTop: '4px',
-    },
-    footer: {
-      background: 'white',
-      borderTop: '1px solid #e5e7eb',
-      marginTop: '64px',
-    },
-    footerContainer: {
-      maxWidth: '1280px',
-      margin: '0 auto',
-      padding: '32px 16px',
-      textAlign: 'center',
-      color: '#6b7280',
+    statusMaintenance: {
+      background: '#fef3c7',
+      color: '#92400e',
     },
   };
 
-  //pdfFile: '/HC_Trend.pdf';
+  const renderContent = () => {
+    const data = tabsData[activeTab];
+    const content = data.content;
 
-  const toolCategories = {
-    starter: {
-      title: '1. Starter (เริ่มต้น)',
-      color: 'bg-yellow-100 border-yellow-300',
-      tools: [
-        { name: 'Krungthai Healthcare Ecosystem', icon: <Users size={20} />, description: 'Krungthai Healthcare Ecosystem',imageFile: '/hc_eco.png' },
-        { name: 'Wolf Health ทำอะไร', icon: <Users size={20} />, description: 'Wolf Health ทำอะไร',imageFile: '/wh.png' },
-        { name: 'โอกาสทางธุรกิจ', icon: <Users size={20} />, description: 'โอกาสทางธุรกิจ'
-                ,pdfFile:'HC_Trend.pdf'}
-      ]
-    },
-    Negotiation: {
-      title: '2. Negotiation (เจรจา)',
-      color: 'bg-yellow-100 border-yellow-300',
-      tools: [
-        { name: 'NHSO Supplier OD', icon: <Users size={20} />, description: 'NHSO Supplier OD',pdfFile: '/HC_Trend.pdf' },
-        { name: 'Buyer OD', icon: <Users size={20} />, description: 'Buyer OD',imageFiles:['/bl1.png','/bl2.png']},
-        { name: 'Do/Don\'t', icon: <Users size={20} />, description: 'Do Don\'t',imageFiles:['/bl1.png','/bl2.png']},
-        { name: 'Calculator', icon: <Users size={20} />, description: 'Calculator',imageFiles:['/bl1.png','/bl2.png']}
-      ]
-    },
-    Win: {
-      title: '3. Win (พิชิตใจ)',
-      color: 'bg-yellow-100 border-yellow-300',
-      tools: [
-        { name: 'checklist เอกสาร', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' },
-        { name: 'Follow up', icon: <Users size={20} />, description: 'โอกาสทางธุรกิจ',imageFiles:['/bl1.png','/bl2.png']}
-      ]
-    },
-    Campaign: {
-      title: '4. Campaign',
-      color: 'bg-yellow-100 border-yellow-300',
-      tools: [
-        { name: 'Top Sale', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' },
-        { name: 'Krungthai Healthcare Ecosystem', icon: <Users size={20} />, description: 'Wolf Health project เราทำอะไร',pdfFile: '/HC_Trend.pdf' }
-      ]
-    }
-  };
+    const nextImage = () => {
+      if (content.imageFiles) {
+        setCurrentImageIndex((prev) => 
+          prev === content.imageFiles.length - 1 ? 0 : prev + 1
+        );
+      }
+    };
 
-  const allTools = Object.values(toolCategories).flatMap(category => 
-    category.tools.map(tool => ({ ...tool, category: category.title }))
-  );
+    const prevImage = () => {
+      if (content.imageFiles) {
+        setCurrentImageIndex((prev) => 
+          prev === 0 ? content.imageFiles.length - 1 : prev - 1
+        );
+      }
+    };
 
-  const filteredTools = selectedCategory === 'all' 
-    ? allTools 
-    : toolCategories[selectedCategory]?.tools.map(tool => ({ 
-        ...tool, 
-        category: toolCategories[selectedCategory].title 
-      })) || [];
+    const goToImage = (index) => {
+      setCurrentImageIndex(index);
+    };
 
-  const searchedTools = filteredTools.filter(tool =>
-    tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    tool.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <div style={styles.container}>
-      {/* Header */}
-      <header style={styles.header}>
-        <div style={styles.headerContainer}>
-          <div>
-            <h1 style={styles.title}>WolfHealth Toolkit</h1>
-            <p style={styles.subtitle}>เครื่องมือสำหรับทีมขาย Wolf Hero</p>
-          </div>
-          <div style={styles.statusBadge}>
-            <div style={styles.statusDot}></div>
-            พร้อมใช้งาน
-          </div>
-        </div>
-      </header>
-
-      <div style={styles.mainContainer}>
-        {/* Search and Filter */}
-        <div style={styles.searchSection}>
-          <div style={styles.searchInputContainer}>
-            <Search style={styles.searchIcon} size={20} />
-            <input
-              type="text"
-              placeholder="ค้นหาเครื่องมือ..."
-              style={styles.searchInput}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          
-          <div style={styles.filterButtons}>
-            <button
-              onClick={() => setSelectedCategory('all')}
-              style={selectedCategory === 'all' ? styles.filterBtnActive : styles.filterBtn}
-            >
-              ทั้งหมด ({allTools.length})
-            </button>
-            {Object.entries(toolCategories).map(([key, category]) => (
-              <button
-                key={key}
-                onClick={() => setSelectedCategory(key)}
-                style={selectedCategory === key ? styles.filterBtnActive : styles.filterBtn}
-              >
-                {category.title} ({category.tools.length})
-              </button>
-            ))}
-          </div>
+    return (
+      <div style={styles.content}>
+        <div style={styles.contentHeader}>
+          <h1 style={styles.contentTitle}>{content.title}</h1>
+          <p style={styles.contentSubtitle}>{content.subtitle}</p>
         </div>
 
-        {/* Tools Grid */}
-        <div style={styles.toolsGrid}>
-          {searchedTools.map((tool, index) => (
-            <div 
-              key={index} 
-              style={styles.toolCard}
-              onClick={() => setSelectedTool(tool)}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                e.currentTarget.querySelector('.tool-icon').style.background = '#bfdbfe';
-                e.currentTarget.querySelector('.tool-title').style.color = '#3b82f6';
-                e.currentTarget.querySelector('.chevron-icon').style.color = '#3b82f6';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
-                e.currentTarget.querySelector('.tool-icon').style.background = '#dbeafe';
-                e.currentTarget.querySelector('.tool-title').style.color = '#111827';
-                e.currentTarget.querySelector('.chevron-icon').style.color = '#9ca3af';
-              }}
-            >
-              <div style={styles.toolHeader}>
-                <div className="tool-icon" style={styles.toolIcon}>
-                  {tool.icon}
+        {/* Image Carousel */}
+        {content.imageFiles && (
+          <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>
+              <div style={{...styles.sectionIcon, background: data.color + '20'}}>
+                <div style={{color: data.color}}>
+                  {data.icon}
                 </div>
-                <div style={styles.toolContent}>
-                  <h3 className="tool-title" style={styles.toolTitle}>{tool.name}</h3>
-                  <p style={styles.toolDescription}>{tool.description}</p>
-                  <div>
-                    <span style={styles.toolCategory}>{tool.category}</span>
-                  </div>
-                </div>
-                <ChevronRight className="chevron-icon" style={styles.chevronIcon} size={20} />
               </div>
-            </div>
-          ))}
-        </div>
-
-    {/* Image/PDF Content Viewer */}
-        {selectedTool && (selectedTool.content || selectedTool.pdfFile || selectedTool.imageFile || selectedTool.imageFiles) && (
-          <div style={styles.contentSection}>
-            <div style={styles.contentHeader}>
-              <button 
-                style={styles.closeButton}
-                onClick={() => setSelectedTool(null)}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#e5e7eb';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#f3f4f6';
-                }}
-              >
-                ✕
-              </button>
-            </div>
-            <div style={styles.pdfViewer}>
-              {selectedTool.imageFiles ? (
-                // แสดงหลายรูป
-                <div style={{
-                  padding: '20px',
-                  background: 'white',
-                  borderRadius: '12px',
-                  maxHeight: '80vh',
-                  overflow: 'auto'
-                }}>
-                  <h2 style={{
-                    marginBottom: '30px',
-                    color: '#1f2937',
-                    fontSize: '24px',
-                    textAlign: 'center'
-                  }}>
-                    {selectedTool.name}
-                  </h2>
-                  <div style={{
-                    display: 'grid',
-                    gap: '20px',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'
-                  }}>
-                    {selectedTool.imageFiles.map((imageSrc, index) => (
-                      <div key={index} style={{
-                        textAlign: 'center'
-                      }}>
-                        <img 
-                          src={imageSrc}
-                          alt={`${selectedTool.name} - รูปที่ ${index + 1}`}
-                          style={{
-                            width: '100%',
-                            height: 'auto',
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                            marginBottom: '10px'
-                          }}
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.nextSibling.style.display = 'block';
-                          }}
-                        />
-                        <div style={{
-                          display: 'none',
-                          padding: '20px',
-                          color: '#6b7280',
-                          fontSize: '14px',
-                          background: '#f9fafb',
-                          borderRadius: '8px'
-                        }}>
-                          ไม่สามารถโหลดรูปที่ {index + 1} ได้
-                        </div>
-                        <p style={{
-                          color: '#6b7280',
-                          fontSize: '14px',
-                          margin: 0
-                        }}>
-                          รูปที่ {index + 1}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : selectedTool.imageFile ? (
-                // แสดงรูปเดียว
-                <div style={{
-                  padding: '20px',
-                  textAlign: 'center',
-                  background: 'white',
-                  borderRadius: '12px',
-                  maxHeight: '80vh',
-                  overflow: 'auto'
-                }}>
-                  <h2 style={{
-                    marginBottom: '20px',
-                    color: '#1f2937',
-                    fontSize: '24px'
-                  }}>
-                    {selectedTool.name}
-                  </h2>
-                  <img 
-                    src={selectedTool.imageFile}
-                    alt={selectedTool.name}
-                    style={{
-                      maxWidth: '100%',
-                      height: 'auto',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-                    }}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'block';
-                    }}
-                  />
-                  <div style={{
-                    display: 'none',
-                    padding: '40px',
-                    color: '#6b7280',
-                    fontSize: '16px'
-                  }}>
-                    ไม่สามารถโหลดรูปภาพได้ กรุณาตรวจสอบไฟล์
-                  </div>
-                </div>
-              ) : selectedTool.pdfFile ? (
-                // แสดง PDF iframe
-                <iframe 
-                  src={selectedTool.pdfFile}
-                  width="100%" 
-                  height="100%"
-                  style={{ 
-                    border: 'none', 
-                    borderRadius: '12px',
-                    minHeight: '80vh'
+              รูปภาพประกอบ
+            </h2>
+            <div style={styles.carousel}>
+              <div style={styles.carouselContainer}>
+                <div 
+                  style={{
+                    ...styles.carouselTrack,
+                    transform: `translateX(-${currentImageIndex * 100}%)`
                   }}
-                  title={selectedTool.name}
-                />
-              ) : (
-                // แสดง content แบบเดิม
-                <div style={styles.bookPage}>
-                  <div style={styles.pageHeader}>
-                    <h1 style={styles.pageTitle}>{selectedTool.content.title}</h1>
-                    <p style={styles.pageSubtitle}>{selectedTool.content.subtitle}</p>
-                  </div>
-                  
-                  {selectedTool.content.sections.map((section, sectionIndex) => (
-                    <div key={sectionIndex}>
-                      <h2 style={styles.sectionTitle}>{section.title}</h2>
-                      {section.content.map((item, itemIndex) => (
-                        <div key={itemIndex} style={styles.bulletPoint}>
-                          <div style={styles.bulletDot}></div>
-                          {item}
-                        </div>
-                      ))}
+                >
+                  {content.imageFiles.map((imageSrc, index) => (
+                    <div key={index} style={styles.carouselSlide}>
+                      <img 
+                        src={imageSrc}
+                        alt={`${content.title} - รูปที่ ${index + 1}`}
+                        style={styles.carouselImage}
+                        onLoad={(e) => {
+                          // Auto-adjust height based on image aspect ratio
+                          const img = e.target;
+                          const naturalRatio = img.naturalWidth / img.naturalHeight;
+                          const containerRatio = img.parentElement.offsetWidth / img.parentElement.offsetHeight;
+                          
+                          if (naturalRatio > containerRatio) {
+                            // Image is wider - fit to width
+                            img.style.width = '100%';
+                            img.style.height = 'auto';
+                          } else {
+                            // Image is taller - fit to height
+                            img.style.width = 'auto';
+                            img.style.height = '100%';
+                          }
+                        }}
+                      />
+                      <div style={styles.carouselCaption}>
+                        รูปที่ {index + 1}: {content.title}
+                      </div>
                     </div>
+                  ))}
+                </div>
+                
+                {/* Navigation Buttons */}
+                {content.imageFiles.length > 1 && (
+                  <>
+                    <button 
+                      style={{...styles.carouselNav, ...styles.navPrev}}
+                      onClick={prevImage}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'white';
+                        e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.9)';
+                        e.target.style.transform = 'translateY(-50%) scale(1)';
+                      }}
+                    >
+                      ←
+                    </button>
+                    <button 
+                      style={{...styles.carouselNav, ...styles.navNext}}
+                      onClick={nextImage}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'white';
+                        e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.9)';
+                        e.target.style.transform = 'translateY(-50%) scale(1)';
+                      }}
+                    >
+                      →
+                    </button>
+                  </>
+                )}
+              </div>
+              
+              {/* Dots Navigation */}
+              {content.imageFiles.length > 1 && (
+                <div style={styles.carouselDots}>
+                  {content.imageFiles.map((_, index) => (
+                    <button
+                      key={index}
+                      style={{
+                        ...styles.dot,
+                        ...(index === currentImageIndex ? styles.dotActive : {}),
+                        background: index === currentImageIndex ? data.color : '#d1d5db'
+                      }}
+                      onClick={() => goToImage(index)}
+                    />
                   ))}
                 </div>
               )}
@@ -548,28 +585,134 @@ const SalesToolkit = () => {
           </div>
         )}
 
-        {/* Empty State */}
-        {searchedTools.length === 0 && (
-          <div style={styles.emptyState}>
-            <div style={styles.emptyIcon}>
-              <Search size={48} color="#9ca3af" />
+        {/* Sections */}
+        {content.sections && content.sections.map((section, index) => (
+          <div key={index} style={styles.section}>
+            <h2 style={styles.sectionTitle}>
+              <div style={{...styles.sectionIcon, background: data.color + '20'}}>
+                <div style={{color: data.color}}>
+                  {data.icon}
+                </div>
+              </div>
+              {section.title}
+            </h2>
+            <div style={styles.itemList}>
+              {section.items.map((item, itemIndex) => (
+                <div key={itemIndex} style={styles.listItem}>
+                  <div style={{...styles.itemDot, background: data.color}}></div>
+                  {item}
+                </div>
+              ))}
             </div>
-            <h3 style={styles.emptyTitle}>ไม่พบเครื่องมือที่ค้นหา</h3>
-            <p style={styles.emptyText}>ลองใช้คำค้นหาอื่น หรือเลือกหมวดหมู่ที่แตกต่างกัน</p>
+          </div>
+        ))}
+
+        {/* Metrics */}
+        {content.metrics && (
+          <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>
+              <div style={{...styles.sectionIcon, background: data.color + '20'}}>
+                <div style={{color: data.color}}>
+                  {data.icon}
+                </div>
+              </div>
+              ตัวชี้วัดผลการดำเนินงาน
+            </h2>
+            <div style={styles.metricsGrid}>
+              {content.metrics.map((metric, index) => (
+                <div key={index} style={styles.metricCard}>
+                  <div style={{...styles.metricValue, color: metric.color}}>
+                    {metric.value}
+                  </div>
+                  <div style={styles.metricLabel}>{metric.label}</div>
+                  <span style={{
+                    ...styles.metricChange,
+                    background: metric.change.startsWith('+') ? '#dcfce7' : '#fee2e2',
+                    color: metric.change.startsWith('+') ? '#166534' : '#dc2626'
+                  }}>
+                    {metric.change}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
-        
+        {/* Tools */}
+        {content.tools && (
+          <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>
+              <div style={{...styles.sectionIcon, background: data.color + '20'}}>
+                <div style={{color: data.color}}>
+                  {data.icon}
+                </div>
+              </div>
+              เครื่องมือที่มีให้บริการ
+            </h2>
+            <div style={styles.toolsGrid}>
+              {content.tools.map((tool, index) => (
+                <div key={index} style={styles.toolCard}>
+                  <div style={styles.toolInfo}>
+                    <div style={styles.toolName}>{tool.name}</div>
+                    <div style={styles.toolDescription}>{tool.description}</div>
+                  </div>
+                  <span style={{
+                    ...styles.toolStatus,
+                    ...(tool.status === 'active' ? styles.statusActive : styles.statusMaintenance)
+                  }}>
+                    {tool.status === 'active' ? 'พร้อมใช้งาน' : 'ปรับปรุง'}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+    );
+  };
 
-      {/* Footer */}
-      <footer style={styles.footer}>
-        <div style={styles.footerContainer}>
-          <p>&copy; 2025 WolfHealth Toolkit. กระบี่พิชิตเป้าหมาย</p>
+  return (
+    <div style={styles.container}>
+      {/* Header */}
+      <header style={styles.header}>
+        <div style={styles.headerContainer}>
+          <div style={styles.headerTop}>
+            <div>
+              <h1 style={styles.title}>Sales Toolkit</h1>
+              <p style={styles.subtitle}>เครื่องมือสำหรับทีมขาย KTB Healthcare</p>
+            </div>
+            <div style={styles.statusBadge}>
+              <div style={styles.statusDot}></div>
+              พร้อมใช้งาน
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div style={styles.tabsContainer}>
+            {Object.entries(tabsData).map(([key, tab]) => (
+              <div
+                key={key}
+                style={{
+                  ...styles.tab,
+                  ...(activeTab === key ? styles.tabActive : {}),
+                  ...(activeTab === key ? { color: tab.color, borderBottomColor: tab.color } : {})
+                }}
+                onClick={() => switchTab(key)}
+              >
+                <div style={styles.tabIcon}>
+                  {tab.icon}
+                </div>
+                {tab.title}
+              </div>
+            ))}
+          </div>
         </div>
-      </footer>
+      </header>
+
+      {/* Content */}
+      {renderContent()}
     </div>
   );
 };
 
-export default SalesToolkit;
+export default TabMenuApp;
