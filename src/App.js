@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Users, Target, FileText, Heart, Award, TrendingUp, DollarSign, Settings } from 'lucide-react';
 
 const TabMenuApp = () => {
-  const [activeTab, setActiveTab] = useState('kyc');
+  const [activeTab, setActiveTab] = useState('wolfhealth');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Reset image index when switching tabs manually
@@ -284,35 +284,44 @@ const TabMenuApp = () => {
     carouselContainer: {
       position: 'relative',
       width: '100%',
-      height: '400px',
+      minHeight: '300px',
+      maxHeight: '600px',
       overflow: 'hidden',
     },
     carouselTrack: {
       display: 'flex',
       width: '100%',
-      height: '100%',
       transition: 'transform 0.3s ease-in-out',
     },
     carouselSlide: {
       minWidth: '100%',
-      height: '100%',
       position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#f9fafb',
+      padding: '20px',
     },
     carouselImage: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
+      maxWidth: '100%',
+      maxHeight: '450px',
+      width: 'auto',
+      height: 'auto',
+      objectFit: 'contain',
+      display: 'block',
     },
     carouselCaption: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-      color: 'white',
-      padding: '40px 20px 20px',
+      marginTop: '16px',
+      color: '#374151',
+      padding: '12px 20px',
       fontSize: '16px',
       fontWeight: '500',
+      textAlign: 'center',
+      background: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '8px',
+      width: '100%',
+      maxWidth: '600px',
     },
     carouselNav: {
       position: 'absolute',
@@ -506,22 +515,6 @@ const TabMenuApp = () => {
                         src={imageSrc}
                         alt={`${content.title} - รูปที่ ${index + 1}`}
                         style={styles.carouselImage}
-                        onLoad={(e) => {
-                          // Auto-adjust height based on image aspect ratio
-                          const img = e.target;
-                          const naturalRatio = img.naturalWidth / img.naturalHeight;
-                          const containerRatio = img.parentElement.offsetWidth / img.parentElement.offsetHeight;
-                          
-                          if (naturalRatio > containerRatio) {
-                            // Image is wider - fit to width
-                            img.style.width = '100%';
-                            img.style.height = 'auto';
-                          } else {
-                            // Image is taller - fit to height
-                            img.style.width = 'auto';
-                            img.style.height = '100%';
-                          }
-                        }}
                       />
                       <div style={styles.carouselCaption}>
                         รูปที่ {index + 1}: {content.title}
