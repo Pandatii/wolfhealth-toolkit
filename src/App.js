@@ -98,7 +98,8 @@ const TabMenuApp = () => {
           '/calc4.jpg',
           '/calc5.jpg',
           '/calc6.jpg',
-          '/calc7.jpg'
+          '/calc7.jpg',
+          '/calcQR.jpg'
         ]
       }
     },
