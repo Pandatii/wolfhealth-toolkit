@@ -27,110 +27,110 @@ const TabMenuApp = () => {
         ]
       }
     },
-    kyc: {
+    hceco: {
       title: 'Know Your Customer',
       icon: <Users size={20} />,
       color: '#3b82f6',
       content: {
-        title: 'Know Your Customer (KYC)',
-        subtitle: 'เครื่องมือทำความรู้จักลูกค้าสำหรับทีมขาย Healthcare',
+        title: 'โอกาสทางธุรกิจของร้านขายยา',
+        subtitle: 'โอกาสทางธุรกิจของร้านขายยา',
         imageFiles: [
-          'https://via.placeholder.com/600x400/3b82f6/white?text=KYC+Process+1',
-          'https://via.placeholder.com/600x400/1e40af/white?text=Customer+Analysis+2',
-          'https://via.placeholder.com/600x400/1d4ed8/white?text=Data+Collection+3'
+          '/hceco1.jpg',
+          '/hceco2.jpg',
+          '/hceco3.jpg',
+          '/hceco4.jpg',
+          '/hceco5.jpg',
+          '/hceco6.jpg',
+          '/hceco7.jpg',
+          '/hceco8.jpg',
+          '/hceco9.jpg',
+          '/hceco10.jpg',
+          '/hceco11.jpg'
         ]
       }
     },
-    decision: {
-      title: 'Decision Maker',
+    ktbhc: {
+      title: 'Krungthai Healthcare Ecosystem',
+      icon: <Users size={20} />,
+      color: '#3b82f6',
+      content: {
+        title: 'Krungthai Healthcare Ecosystem',
+        subtitle: 'Krungthai Healthcare Ecosystem',
+        imageFiles: [
+          '/ktbhc.jpg'
+        ]
+      }
+    },
+    dodonttips: {
+      title: 'Do - Don\'t - Tips',
       icon: <Target size={20} />,
       color: '#ef4444',
       content: {
-        title: 'Decision Maker Analysis',
+        title: 'เทคนิคการเจรจาพิชิตใจลูกค้า',
         subtitle: 'การระบุและวิเคราะห์ผู้มีอำนาจตัดสินใจ',
-        sections: [
-          {
-            title: 'ระดับการตัดสินใจ',
-            items: [
-              'ผู้บริหารระดับสูง (C-Level)',
-              'ผู้จัดการแผนก (Department Manager)',
-              'หัวหน้าโครงการ (Project Leader)',
-              'ผู้ใช้งานจริง (End User)'
-            ]
-          },
-          {
-            title: 'กระบวนการตัดสินใจ',
-            items: [
-              'การประเมินความต้องการ',
-              'การวิเคราะห์งบประมาณ',
-              'การเปรียบเทียบทางเลือก',
-              'การอนุมัติโครงการ'
-            ]
-          }
+        imageFiles: [
+          '/tips1.jpg',
+          '/tips2.jpg',
+          '/tips3.jpg',
+          '/tips4.jpg',
+          '/tips5.jpg',
+          '/tips6.jpg',
+          '/tips7.jpg',
+          '/tips8.jpg',
+          '/tips9.jpg',
+          '/tips10.jpg',
+          '/tips11.jpg',
+          '/tips12.jpg'
         ]
       }
     },
-    ecosystem: {
-      title: 'Healthcare Ecosystem',
+    cal: {
+      title: 'คำนวณดอกเบี้ยยอดซื้อ',
+      icon: <Target size={20} />,
+      color: '#ef4444',
+      content: {
+        title: 'คำนวณดอกเบี้ยยอดซื้อ',
+        subtitle: 'คำนวณดอกเบี้ยยอดซื้อ Buyer OD, NHSO Supplier OD',
+        imageFiles: [
+          '/calc1.jpg',
+          '/calc2.jpg',
+          '/calc3.jpg',
+          '/calc4.jpg',
+          '/calc5.jpg',
+          '/calc6.jpg',
+          '/calc7.jpg'
+        ]
+      }
+    },
+    documents: {
+      title: 'Checklist เอกสาร',
       icon: <Heart size={20} />,
       color: '#10b981',
       content: {
         title: 'Healthcare Ecosystem Overview',
         subtitle: 'ระบบนิเวศด้านสุขภาพและการดูแลพนักงาน',
-        sections: [
-          {
-            title: 'ผู้เกี่ยวข้องหลัก',
-            items: [
-              'โรงพยาบาลและคลินิก',
-              'บริษัทประกันสุขภาพ',
-              'ผู้ให้บริการตรวจสุขภาพ',
-              'แพลตฟอร์มเทคโนโลยีสุขภาพ'
-            ]
-          },
-          {
-            title: 'แนวโน้มตลาด',
-            items: [
-              'Digital Health Transformation',
-              'Preventive Healthcare',
-              'Employee Wellness Program',
-              'Telemedicine & Remote Care'
-            ]
-          }
+        imageFiles: [
+          '/checklist.png'
         ]
       }
     },
-    performance: {
-      title: 'Performance Metrics',
+    campaign: {
+      title: 'Campaign กระตุ้นยอดขาย',
       icon: <TrendingUp size={20} />,
       color: '#8b5cf6',
       content: {
-        title: 'Sales Performance Dashboard',
-        subtitle: 'ตัวชี้วัดและการวัดผลการขาย',
-        charts: true,
-        metrics: [
-          { label: 'Monthly Revenue', value: '฿2.5M', change: '+15.2%', color: '#10b981' },
-          { label: 'New Clients', value: '24', change: '+8.3%', color: '#3b82f6' },
-          { label: 'Conversion Rate', value: '32%', change: '-2.1%', color: '#ef4444' },
-          { label: 'Average Deal Size', value: '฿125K', change: '+12.7%', color: '#f59e0b' }
+        title: 'Campaign กระตุ้นยอดขาย',
+        subtitle: 'Campaign กระตุ้นยอดขาย ถึงธันวา 2568',
+        imageFiles: [
+          '/camp1.jpg',
+          '/camp2.jpg',
+          '/camp3.jpg',
+          '/camp4.jpg',
+          '/camp5.jpg'
         ]
       }
     },
-    tools: {
-      title: 'Sales Tools',
-      icon: <Settings size={20} />,
-      color: '#6b7280',
-      content: {
-        title: 'Sales Tools & Resources',
-        subtitle: 'เครื่องมือและทรัพยากรสำหรับทีมขาย',
-        tools: [
-          { name: 'CRM System', description: 'ระบบจัดการลูกค้าสัมพันธ์', status: 'active' },
-          { name: 'Proposal Generator', description: 'เครื่องมือสร้างข้อเสนอ', status: 'active' },
-          { name: 'ROI Calculator', description: 'คำนวณผลตอบแทนการลงทุน', status: 'maintenance' },
-          { name: 'Contract Templates', description: 'แม่แบบสัญญา', status: 'active' },
-          { name: 'Presentation Library', description: 'ห้องสมุดงานนำเสนอ', status: 'active' }
-        ]
-      }
-    }
+    
   };
 
   const styles = {
@@ -457,6 +457,18 @@ const TabMenuApp = () => {
       background: '#fef3c7',
       color: '#92400e',
     },
+    footer: {
+      background: 'white',
+      borderTop: '1px solid #e5e7eb',
+      marginTop: '64px',
+    },
+    footerContainer: {
+      maxWidth: '1280px',
+      margin: '0 auto',
+      padding: '32px 16px',
+      textAlign: 'center',
+      color: '#6b7280',
+    },
   };
 
   const renderContent = () => {
@@ -671,8 +683,8 @@ const TabMenuApp = () => {
         <div style={styles.headerContainer}>
           <div style={styles.headerTop}>
             <div>
-              <h1 style={styles.title}>Sales Toolkit</h1>
-              <p style={styles.subtitle}>เครื่องมือสำหรับทีมขาย KTB Healthcare</p>
+              <h1 style={styles.title}>Wolf Hero Toolkit</h1>
+              <p style={styles.subtitle}>เครื่องมือสำหรับทีมขาย Wolf Hero</p>
             </div>
             <div style={styles.statusBadge}>
               <div style={styles.statusDot}></div>
@@ -704,7 +716,16 @@ const TabMenuApp = () => {
 
       {/* Content */}
       {renderContent()}
+
+          {/* Footer */}
+      <footer style={styles.footer}>
+        <div style={styles.footerContainer}>
+          <p>&copy; 2025 Wolf Hero Toolkit. กระบี่พิชิตเป้าหมาย</p>
+        </div>
+      </footer>
     </div>
+
+    
   );
 };
 
