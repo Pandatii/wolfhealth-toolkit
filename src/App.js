@@ -110,7 +110,7 @@ const TabMenuApp = () => {
         title: 'Healthcare Ecosystem Overview',
         subtitle: 'ระบบนิเวศด้านสุขภาพและการดูแลพนักงาน',
         imageFiles: [
-          '/checklist.png'
+          '/checklist.jpg'
         ]
       }
     },
